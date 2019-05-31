@@ -1,0 +1,16 @@
+<div class="assets">
+    <button (click)="onRefresh()">Refresh</button>
+    <button (click)="onCreate()">Create</button>
+    <ag-grid-angular class="assets-grid ag-theme-balham" [gridOptions]="gridOptions" [rowData]="assets | async" (firstDataRendered)="onFirstDataRendered($event)"
+        (rowDoubleClicked)="onDoubleClick($event.api.getSelectedRows())">
+        <ag-grid-column headerName="Name" field="fileName" [width]="120">
+        </ag-grid-column>
+        <ag-grid-column headerName="Created/Updated On" field="createdOn" [valueFormatter]="gridUtils.dateFormatter('MM/dd/yyyy HH:mm', 'createdOn')"
+            [comparator]="gridUtils.dateComparator" [width]="100">
+        </ag-grid-column>
+        <ag-grid-column cellRenderer="buttonRenderer" [cellRendererParams]="cellModifyParams" [width]="100">
+        </ag-grid-column>
+        <ag-grid-column cellRenderer="buttonRenderer" [cellRendererParams]="cellDeleteParams" [width]="100">
+        </ag-grid-column>
+    </ag-grid-angular>
+</div>

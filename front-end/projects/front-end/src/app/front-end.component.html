@@ -1,0 +1,7 @@
+<div class="main-content" [class.disabled]="busy$ | async">
+    <h3>Assets Browser</h3>
+    <router-outlet></router-outlet>
+    <h1>{{message$ | async}}</h1>
+</div>
+
+<div [class.spinner]="busy$ | async"></div>

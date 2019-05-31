@@ -1,0 +1,34 @@
+<form [formGroup]="assetForm" class="details">
+    <div class="details-container" [class.disabled]="(state$ | async).detailsActionType == 2">
+        <div class="details-row">
+            <label>File name</label>
+            <input name="fileName" type="text" formControlName="fileName" />
+        </div>
+        <div class="details-row">
+            <label>Mime Type</label>
+            <input name="mimeType" type="text" formControlName="mimeType" />
+        </div>
+        <div class="details-row">
+            <label>Created By</label>
+            <input name="createdBy" type="text" formControlName="createdBy" />
+        </div>
+        <div class="details-row">
+            <label>Email</label>
+            <input name="email" type="text" formControlName="email" />
+        </div>
+        <div class="details-row">
+            <label>Country</label>
+            <input name="country" type="text" formControlName="country" />
+        </div>
+        <div class="details-row">
+            <label>Description</label>
+            <textarea name="description" formControlName="description" ></textarea>
+        </div>
+    </div>
+
+    <div class="buttons" [ngSwitch]="(state$ | async).detailsActionType">
+        <button *ngSwitchCase="0" (click)="onCreate()" [disabled]="!assetForm.valid">Create</button>
+        <button *ngSwitchCase="1" (click)="onModify()" type="submit" [disabled]="!assetForm.valid">Modify</button>
+        <button (click)="onBack()">Back</button>
+    </div>
+</form>
