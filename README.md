@@ -33,22 +33,30 @@ The url to call is:
 
 ## Azure DevOps Artifacts
 
-The following sections describe the procedure, the easiest one, to create a build pipeline and the feed for CRUD project, in order to be consumed by the ASPNET Web Application.
+The following sections describe the procedure, the easiest one, to create a build pipeline and the feed for CRUD project, in order to be consumed by the ASPNET Web Application through NuGet package manager.
 Some steps in Azure DevOps are taken for granted, for example creating a new project, adding a repository from GitHub.
+
+So, after creating a new project and connecting it with GitHub, I follow these steps:
+
+- create a feed
+- build pipeline
+- consume CRUD package
 
 ### Create a Feed
 
-From the Artifacts section of Azure DevOps, create a new Feed with a name (for example TeamFeed).
+From the Artifacts section of Azure DevOps, I created a new Feed with a name (for example TeamFeed).
 
-After that, connect the feed, specifying NuGet.
+![create-feed](assets/create-feed.jpg)
 
-Copy the link for NuGet Gallery in order to use it from Visual Studio for dowloading the package.
+After that, I connected the feed, specifying NuGet.
+
+![connect-feed](assets/connect-feed.jpg)
+
+I Copied the link Package Source URL in order to use it from Visual Studio for dowloading the package.
 
 ### Build Pipeline
 
-After adding the source under a new project in Azure DevOps, it will possible to create a build pipeline for the project.
-
-Under Azure DevOps -> Pipelines -> Build, create a new pipeline, specifying the repository added above.
+Under Azure DevOps -> Pipelines -> Build, I createt a new pipeline, specifying the repository added above.
 
 The pipeline is this one:
 
@@ -84,6 +92,20 @@ The pipeline is this one:
 
     - task: PublishBuildArtifacts@1
 
-The first DotNetCoreCLI@2 command build and pack the CRUD project, under the $(build.artifactStagingDirectory) folder.
-The second DotNetCoreCLI@2 command push the pack in the TeamFeed, previously created.
-the PublishBuildArtifacts@1 command pubish the artifact.
+Main steps:
+
+- The first DotNetCoreCLI@2 command build and pack the CRUD project, under the $(build.artifactStagingDirectory) folder.
+- The second DotNetCoreCLI@2 command push the pack in the TeamFeed, previously created.
+- the PublishBuildArtifacts@1 command pubish the artifact.
+
+### Consume CRUD Package
+
+From Visual Studio I went to Manage NuGet Packages...
+
+![manage-nuget-packages](assets/manage-nuget-packages.jpg)
+
+From Settings icon I added the source, copied before and I clicked Updated button
+
+![add-crud-package](assets/add-crud-package.jpg)
+
+Now it's possible to select my CRUD package, changing the Package source combobox selection near the Settings icon.
