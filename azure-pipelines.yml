@@ -24,7 +24,11 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: 'back-end/CRUD/*.csproj'
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: byPrereleaseNumber
+    versionEnvVar: byPrereleaseNumber
+    majorVersion: 0
+    minorVersion: 1
+    patchVersion: 0
     verbosityPack: 'Diagnostic'
 
 # - task: DotNetCoreCLI@2
