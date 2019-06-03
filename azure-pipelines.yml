@@ -23,20 +23,19 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    arguments: --output $(build.artifactstagingdirectory)
-    packagesToPack: 'back-end/CRUD/*.csproj'
+    arguments: --output $(build.artifactstagingdirectory) --configuration $(buildConfiguration)
+    packagesToPack: '$(folderName)/$(projectName).csproj'
     versioningScheme: byPrereleaseNumber
     versionEnvVar: byPrereleaseNumber
     majorVersion: 0
     minorVersion: 1
     patchVersion: 0
-    verbosityPack: 'Diagnostic'
 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: 'push'
-#     nuGetFeedType: 'internal'
-#     packagesToPush: '$(build.artifactStagingDirectory)/*.nupkg'
-#     publishVstsFeed: "TeamFeed"
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    nuGetFeedType: 'internal'
+    packagesToPush: '$(build.artifactStagingDirectory)/*.nupkg'
+    publishVstsFeed: "TeamFeed"
 
-# - task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@1
