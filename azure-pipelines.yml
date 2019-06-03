@@ -21,16 +21,11 @@ steps:
 #   displayName: 'Build & Publish'
   
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet pack'
   inputs:
-    command: pack
-    arguments: --output $(build.artifactstagingdirectory)
-    projects: '$(folderName)/$(projectName).csproj'
-    versioningScheme: byPrereleaseNumber
-    versionEnvVar: byPrereleaseNumber
-    majorVersion: 0
-    minorVersion: 1
-    patchVersion: 0
+    command: 'pack'
+    packagesToPack: 'back-end/CRUD/*.csproj'
+    versioningScheme: 'byBuildNumber'
+    verbosityPack: 'Diagnostic'
 
 # - task: DotNetCoreCLI@2
 #   inputs:
