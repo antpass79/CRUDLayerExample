@@ -41,6 +41,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
+    projects: '$(CRUDproject)'
 
 - task: DotNetCoreCLI@2
   inputs:
