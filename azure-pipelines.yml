@@ -15,16 +15,16 @@ variables:
   projectName: 'CRUD'
 
 steps:
-- script: |
-    dotnet build $(folderName)/$(projectName).csproj --configuration $(buildConfiguration)
-    dotnet publish $(folderName)/$(projectName).csproj --configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)
-  displayName: 'Build & Publish'
+# - script: |
+#     dotnet build $(folderName)/$(projectName).csproj --configuration $(buildConfiguration)
+#     dotnet publish $(folderName)/$(projectName).csproj --configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)
+#   displayName: 'Build & Publish'
   
 - task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
   inputs:
     command: pack
-    nobuild: true
+    arguments: --output $(build.artifactstagingdirectory)
     projects: '$(folderName)/$(projectName).csproj'
     versioningScheme: byPrereleaseNumber
     versionEnvVar: byPrereleaseNumber
