@@ -207,10 +207,6 @@
     <Compile Include="CRUD\Exceptions\NullReferenceObject.cs" />
     <Compile Include="CRUD\Exceptions\TooMuchResults.cs" />
     <Compile Include="CRUD\Repositories\GenericRepository.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="CRUD\Assemblers\AssetDTOToAssetAssembler.cs" />
