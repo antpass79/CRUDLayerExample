@@ -15,11 +15,6 @@ variables:
   projectName: 'CRUD'
 
 steps:
-# - script: |
-#     dotnet build $(folderName)/$(projectName).csproj --configuration $(buildConfiguration)
-#     dotnet publish $(folderName)/$(projectName).csproj --configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)
-#   displayName: 'Build & Publish'
-  
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
