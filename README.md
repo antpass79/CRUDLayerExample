@@ -30,3 +30,60 @@ The application calls the server runs on the port 62677. You can change it throu
 The url to call is:
 
         http://localhost:4200/#/assets
+
+## Azure DevOps Artifacts
+
+The following sections describe the procedure, the easiest one, to create a build pipeline and the feed for CRUD project, in order to be consumed by the ASPNET Web Application.
+Some steps in Azure DevOps are taken for granted, for example creating a new project, adding a repository from GitHub.
+
+### Create a Feed
+
+From the Artifacts section of Azure DevOps, create a new Feed with a name (for example TeamFeed).
+
+After that, connect the feed, specifying NuGet.
+
+Copy the link for NuGet Gallery in order to use it from Visual Studio for dowloading the package.
+
+### Build Pipeline
+
+After adding the source under a new project in Azure DevOps, it will possible to create a build pipeline for the project.
+
+Under Azure DevOps -> Pipelines -> Build, create a new pipeline, specifying the repository added above.
+
+The pipeline is this one:
+
+    trigger:
+    - master
+
+    pool:
+    vmImage: 'windows-latest'
+
+    variables:
+    buildConfiguration: 'Release'
+    folderName: 'back-end/CRUD'
+    projectName: 'CRUD'
+
+    steps:
+    - task: DotNetCoreCLI@2
+    inputs:
+        command: 'pack'
+        arguments: --output $(build.artifactstagingdirectory) --configuration $(buildConfiguration)
+        packagesToPack: '$(folderName)/$(projectName).csproj'
+        versioningScheme: byPrereleaseNumber
+        versionEnvVar: byPrereleaseNumber
+        majorVersion: 0
+        minorVersion: 1
+        patchVersion: 0
+
+    - task: DotNetCoreCLI@2
+    inputs:
+        command: 'push'
+        nuGetFeedType: 'internal'
+        packagesToPush: '$(build.artifactStagingDirectory)/*.nupkg'
+        publishVstsFeed: "TeamFeed"
+
+    - task: PublishBuildArtifacts@1
+
+The first DotNetCoreCLI@2 command build and pack the CRUD project, under the $(build.artifactStagingDirectory) folder.
+The second DotNetCoreCLI@2 command push the pack in the TeamFeed, previously created.
+the PublishBuildArtifacts@1 command pubish the artifact.
