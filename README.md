@@ -1,12 +1,11 @@
-# CRUDLayerExample
+# CRUD-devops-artifact
 
 This is a simple application that uses Angular as the frontend and ASPNET WebApi as the backend.
+The application can manage assets, through CRUD opreations.
+The frontend is an Angular application based on NgRx infrastructure.
+The backend is an ASPNET application with an abstraction layer for CRUD operations and the layer for accessing to REST Api.
 
-The aims of the project are:
-
-- use NgRx for managing the state of the Angular application.
-- create an abstraction layer for CRUD operations as a separate project.
-- define the CRUD project as an artifact in Azure DevOps, in order to use NuGet for downloading the package and reference it in the Web Application.
+The aim of the project is to define the CRUD layer as an artifact in Azure DevOps, in order to use NuGet for downloading the package and reference it in the Web Application.
 
 ## Running the Application
 
